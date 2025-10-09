@@ -3,8 +3,8 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Container\Attributes\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth; // ✅ ini yang benar
 use Symfony\Component\HttpFoundation\Response;
 
 class RoleMiddleware
@@ -18,7 +18,7 @@ class RoleMiddleware
     {
         $user = Auth::user();
 
-        if ($user->role !== $role){
+        if (!$user || $user->role !== $role) {
             return response('Unauthorized', 403);
         }
 

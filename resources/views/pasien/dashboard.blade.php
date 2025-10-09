@@ -1,4 +1,4 @@
-<x-layouts.app tittle="Pasien"
+<x-layouts.app title="Pasien">
     <h1 class="ml-4">Selamat datang di halaman Pasien</h1>
 </x-layouts.app>
 
