@@ -1,7 +1,10 @@
 <?php
 
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Admin\PoliController;
+use App\Http\Controllers\Admin\DokterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +35,10 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::get('/dashboard', function () {
         return view('admin.dashboard');
     })->name('admin.dashboard');
+    Route::resource('polis', PoliController::class);
+    Route::resource('dokter', DokterController::class);
+    // Route::resource('pasien', PasienController::class);
+    // Route::resource('obat', ObatController::class);
 });
 
 // Dokter

@@ -32,6 +32,32 @@
                     </li>
                 @endif
 
+                <!-- ROLE ADMIN  -->
+                @if (request()->is('admin*'))
+                    <li class="nav-item">
+                        <a href="{{ route('polis.index') }}"
+                        class="nav-link {{ request()->routeIs('polis.*') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-hospital"></i>
+                            <p>
+                                Manajemen Poli
+                            </p>
+                        </a>
+                    </li>
+                @endif
+
+                <!-- ROLE ADMIN  -->
+                @if (request()->is('admin*'))
+                    <li class="nav-item">
+                        <a href="{{ route('dokter.index') }}"
+                        class="nav-link {{ request()->routeIs('dokter.*') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-hospital"></i>
+                            <p>
+                                Manajemen Dokter
+                            </p>
+                        </a>
+                    </li>
+                @endif
+
                 <!-- ROLE PASIEN -->
                 @if (request()->is('pasien*'))
                     <li class="nav-item">
