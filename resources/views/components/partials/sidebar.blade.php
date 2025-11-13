@@ -96,6 +96,20 @@
                     </li>
                 @endif
 
+                <!-- ROLE PASIEN -->
+                @auth
+                    @if (auth()->user()->role === 'pasien')
+                        <li class="nav-item">
+                            <a href="{{ route('pasien.daftar') }}"
+                            class="nav-link {{ request()->routeIs('pasien.daftar') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-columns"></i>
+                                <p>Poli</p>
+                            </a>
+                        </li>
+                    @endif
+                @endauth
+
+
                 <!-- ROLE DOKTER -->
                 @if (request()->is('dokter*'))
                     <li class="nav-item">
@@ -103,6 +117,18 @@
                             <i class="nav-icon fas fa-columns"></i>
                             <p>
                                 Dashboard Dokter
+                            </p>
+                        </a>
+                    </li>
+                @endif
+
+                <!-- ROLE DOKTER -->
+                @if (request()->is('dokter*'))
+                    <li class="nav-item">
+                        <a href="{{ route('jadwal-periksa.index') }}" class="nav-link {{ request()->routeIs('jadwal-periksa.index') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-columns"></i>
+                            <p>
+                                Jadwal Periksa
                             </p>
                         </a>
                     </li>
