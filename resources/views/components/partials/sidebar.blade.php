@@ -134,6 +134,18 @@
                     </li>
                 @endif
 
+                <!-- ROLE DOKTER -->
+                @if (request()->is('dokter*'))
+                    <li class="nav-item">
+                        <a href="{{ route('periksa-pasien.index') }}" class="nav-link {{ request()->routeIs('periksa-pasien.index') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-stethoscope   "></i>
+                            <p>
+                                Periksa Pasien
+                            </p>
+                        </a>
+                    </li>
+                @endif
+
                 <li class="nav-item ">
                     <form method="POST" action="/logout">
                         @csrf

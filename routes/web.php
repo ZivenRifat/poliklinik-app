@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\PoliController;
 use App\Http\Controllers\Admin\DokterController;
 use App\Http\Controllers\Admin\PasienController;
 use App\Http\Controllers\Dokter\JadwalPeriksaController;
+use App\Http\Controllers\Dokter\PeriksaPasienController;
 use App\Http\Controllers\Pasien\PoliController as PasienPoliController;
 
 /*
@@ -47,6 +48,7 @@ Route::middleware(['auth', 'role:dokter'])->prefix('dokter')->group(function () 
         return view('dokter.dashboard');
     })->name('dokter.dashboard');
     Route::resource('jadwal-periksa', JadwalPeriksaController::class);
+    Route::resource('periksa-pasien', PeriksaPasienController::class);
 });
 
 // Pasien
