@@ -25,6 +25,13 @@
                             @csrf
                             <input type="hidden" name="id_daftar_poli" value="{{ $id }}">
 
+                            {{-- Keluhan Pasien --}}
+                            <div class="form-group mb-3">
+                                <label class="form-label">Keluhan Pasien</label>
+                                <textarea class="form-control" rows="3" readonly>{{ $daftarPoli->keluhan }}</textarea>
+                            </div>
+
+
                             {{-- Pilih Obat --}}
                             <div class="form-group mb-3">
                                 <label for="obat" class="form-label">Pilih Obat</label>

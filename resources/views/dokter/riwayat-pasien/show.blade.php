@@ -18,7 +18,7 @@
                         <p><strong>Poli:</strong> {{ $periksa->daftarPoli->jadwalPeriksa->dokter->poli->nama_poli }}</p>
                         <p><strong>Dokter:</strong> {{ $periksa->daftarPoli->jadwalPeriksa->dokter->nama }}</p>
                         <p><strong>Tanggal Periksa:</strong>
-                            {{ \Carbon\Carbon::parse($periksa->tgl_periksa)->format('d/m/Y H:i') }}</p>
+                            {{ \Carbon\Carbon::parse($periksa->tgl_periksa)->format('d/m/Y') }}</p>
                     </div>
                 </div>
 
