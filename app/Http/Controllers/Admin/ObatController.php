@@ -4,10 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Poli;
-use App\Models\User;
-USE App\Models\Obat;
-use Illuminate\Support\Facades\Hash;
+use App\Models\Obat;
 
 class ObatController extends Controller
 {
@@ -37,18 +34,21 @@ class ObatController extends Controller
             'nama_obat' => 'required|string',
             'kemasan' => 'required|string',
             'harga' => 'required|integer',
+            'stok' => 'required|integer|min:0',
         ]);
 
         Obat::create([
             'nama_obat' => $request->nama_obat,
             'kemasan' => $request->kemasan,
             'harga' => $request->harga,
+            'stok' => $request->stok,
         ]);
 
         return redirect()->route('obat.index')
             ->with('message', 'Data Obat Berhasil ditambahkan')
             ->with('type', 'success');
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -96,5 +96,4 @@ class ObatController extends Controller
             ->with('message', 'Data Obat Berhasil dihapus')
             ->with('type', 'success');
     }
-
 }
