@@ -2,7 +2,6 @@
     <div class="container-fluid px-4 mt-4">
         <div class="row">
             <div class="col-lg-12">
-
                 {{-- Alert flash message --}}
                 @if (session('message'))
                     <div class="alert alert-{{ session('type', 'success') }} alert-dismissible fade show" role="alert">
@@ -24,38 +23,55 @@
                                 <th>Nama Obat</th>
                                 <th>Kemasan</th>
                                 <th>Harga</th>
+                                <th>Stok</th>
+                                <th>Status</th>
                                 <th style="width: 150px;">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($obats as $obat )
+                            @forelse ($obat as $obat)
                                 <tr>
                                     <td>{{ $obat->nama_obat }}</td>
                                     <td>{{ $obat->kemasan }}</td>
-                                    <td>Rp {{ number_format($obat->harga, 0, ',', '.') }}</td>
+                                    <td>{{ 'Rp' . number_format($obat->harga, 0, ',', '.') }}</td>
+                                    <td>{{ $obat->stok }}</td>
+                                    <td>
+                                        @if ($obat->stok == 0)
+                                            <span class="badge bg-danger">Habis</span>
+                                        @elseif ($obat->stok <= 10)
+                                            <span class="badge bg-warning text-dark">Menipis</span>
+                                        @else
+                                            <span class="badge bg-success">Aman</span>
+                                        @endif
+                                    </td>
+
                                     <td>
                                         <a href="{{ route('obat.edit', $obat->id) }}" class="btn btn-sm btn-warning">
                                             <i class="fas fa-edit"></i>Edit
                                         </a>
-                                        <form action="{{ route('obat.destroy', $obat->id) }}" method="POST" style="display: inline-block;">
+
+                                        <br>
+                                        <form action="{{ route('obat.destroy', $obat->id) }}" method="POST"
+                                            style="display: inline-block;">
                                             @csrf
                                             @method('DELETE')
-                                            <button class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus Data obat ini ?')">
+                                            <button class="btn btn-sm btn-danger"
+                                                onclick="return confirm('Yakin ingin menghapus data obat ini ?')">
                                                 <i class="fas fa-trash"></i> Hapus
                                             </button>
                                         </form>
+
                                     </td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td class="text-center" colspan="7">
-                                        Belum ada Data Obat
-                                    </td>
+                                    <td colspan="6" class="text-center">Belum ada data obat.</td>
                                 </tr>
                             @endforelse
                         </tbody>
                     </table>
                 </div>
+
             </div>
         </div>
     </div>
@@ -71,4 +87,4 @@
         }, 2000);
     </script>
 
-</x-layouts.app>
+    </x-layout>

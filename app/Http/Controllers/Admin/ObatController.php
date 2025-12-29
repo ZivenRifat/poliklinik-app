@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\User;
-use App\Models\Obat;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Models\Poli;
+use App\Models\User;
+USE App\Models\Obat;
 use Illuminate\Support\Facades\Hash;
 
 class ObatController extends Controller
@@ -15,9 +16,8 @@ class ObatController extends Controller
      */
     public function index()
     {
-        // dimana role adalah obat
-        $obats = Obat::all();
-        return view('admin.obat.index', compact('obats'));
+        $obat = Obat::all();
+        return view('admin.obat.index', compact('obat'));
     }
 
     /**
@@ -33,13 +33,11 @@ class ObatController extends Controller
      */
     public function store(Request $request)
     {
-        //1. membuat validasi
-        $data = $request->validate([
+        $request->validate([
             'nama_obat' => 'required|string',
             'kemasan' => 'required|string',
             'harga' => 'required|integer',
         ]);
-        // dd($data);
 
         Obat::create([
             'nama_obat' => $request->nama_obat,
@@ -48,7 +46,7 @@ class ObatController extends Controller
         ]);
 
         return redirect()->route('obat.index')
-            ->with('message', 'Data obat Berhasil di tambahkan')
+            ->with('message', 'Data Obat Berhasil ditambahkan')
             ->with('type', 'success');
     }
 
@@ -58,40 +56,33 @@ class ObatController extends Controller
     public function edit(string $id)
     {
         $obat = Obat::findOrFail($id);
-
-        return view('admin.obat.edit', compact('obat'));
+        return view('admin.obat.edit')->with(['obat' => $obat]);
     }
 
     /**
      * Update the specified resource in storage.
-     * $obat adalah route model binding jadi yang harus nya kita buat
-     * $obat = User::findOrFail($id); kita bisa membuat menjadi parameter,
-     * namun jika menggunakan cara tersebut kita route nya tidak bisa admin/obat{id}/edit namun
-     * seperi admin/obat/{obat}/edit
      */
-
     public function update(Request $request, string $id)
     {
-        // Validasi data
         $request->validate([
             'nama_obat' => 'required|string',
-            'kemasan' => 'required|string',
+            'kemasan' => 'nullable|string',
             'harga' => 'required|integer',
+            'stok' => 'required|integer|min:0',
         ]);
 
         $obat = Obat::findOrFail($id);
-        // Data yang akan diupdate
-        $obat->update ([
+        $obat->update([
             'nama_obat' => $request->nama_obat,
             'kemasan' => $request->kemasan,
             'harga' => $request->harga,
+            'stok' => $request->stok,
         ]);
 
         return redirect()->route('obat.index')
-            ->with('message', 'Data obat Berhasil diubah')
+            ->with('message', 'Data Obat Berhasil diupdate')
             ->with('type', 'success');
     }
-
 
     /**
      * Remove the specified resource from storage.
@@ -100,8 +91,10 @@ class ObatController extends Controller
     {
         $obat = Obat::findOrFail($id);
         $obat->delete();
+
         return redirect()->route('obat.index')
-            ->with('message', 'Data obat Berhasil dihapus')
+            ->with('message', 'Data Obat Berhasil dihapus')
             ->with('type', 'success');
     }
+
 }

@@ -146,6 +146,18 @@
                     </li>
                 @endif
 
+                <!-- ROLE DOKTER -->
+                @if (request()->is('dokter*'))
+                    <li class="nav-item">
+                        <a href="{{ route('dokter.riwayat-pasien.index') }}" class="nav-link {{ request()->routeIs('riwayat-pasien.index') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-history   "></i>
+                            <p>
+                                Riwayat Pasien
+                            </p>
+                        </a>
+                    </li>
+                @endif
+
                 <li class="nav-item ">
                     <form method="POST" action="/logout">
                         @csrf
